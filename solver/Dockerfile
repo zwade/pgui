@@ -1,9 +1,10 @@
 FROM node:14
 
-RUN yarn global add typescript
-
-WORKDIR /app
-ADD package.json ./
-ADD yarn.lock ./
+WORKDIR /solver
+ADD index.ts package.json tsconfig.json yarn.lock ./
 RUN yarn install
 
+ARG TARGET
+ENV TARGET $TARGET
+
+CMD ["bash", "-c", "yarn start $TARGET"]

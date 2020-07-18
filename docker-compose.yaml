@@ -5,11 +5,21 @@ services:
     restart: "always"
     environment:
       - "POSTGRES_USER=postgres"
-      - "POSTGRES_PASSWORD=${PG_PASS:?Please set [POSTGRES_PASSWORD] in your environment}"
+      - "POSTGRES_PASSWORD=${PG_PASS:?Please set [PG_PASS] in your environment}"
       - "ADMIN_USER=admin"
       - "ADMIN_PASS=${ADMIN_PASS:?Please set [ADMIN_PASS] in your environment}"
       - "FLAG=${FLAG:-CTF{test_flag}}"
     volumes:
       - "./db/:/docker-entrypoint-initdb.d/"
+  server:
+    build:
+      context: "./"
+      dockerfile: "./server/Dockerfile"
+    restart: always
+    environment:
+      - "PG_USER=postgres"
+      - "PG_PASS=${PG_PASS}"
+      - "PG_HOST=pg"
+      - "PG_PORT=5432"
     ports:
-      - "5432:5432"
+      - "5000:5000"
