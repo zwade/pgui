@@ -1,5 +1,11 @@
 # pgUI
 
+## Quick Links
+
+ - "Public Challenge Description": details/public.md
+ - "Secret Design Specification": details/private.md
+ - "Full Solution Explanation": solver/index.ts
+
 ## Overview
 
 This is a postgres-oriented web challenge for players with moderate experience with web technologies and exploitation.
@@ -21,6 +27,7 @@ You may either put these in your environment (not recommended), or you can put t
 
  - `PG_PASS`: The password for the `postgres` user in the db. This is how the server will connect to the database
  - `ADMIN_PASS`: The passwrod for the `admin` user in the application itself. This will never actually be used (unless players get way more creative than I anticipate), but is necessary for creating the default user.
+ - `FLAG`: The flag that competitors will submit. I recommend `CTF{looking_a_bit_basic}`
 
 Note that `docker-compose` will not let you create the containers without these two set.
 

@@ -8,7 +8,7 @@ services:
       - "POSTGRES_PASSWORD=${PG_PASS:?Please set [PG_PASS] in your environment}"
       - "ADMIN_USER=admin"
       - "ADMIN_PASS=${ADMIN_PASS:?Please set [ADMIN_PASS] in your environment}"
-      - "FLAG=${FLAG:-CTF{test_flag}}"
+      - "FLAG=${FLAG:?Please set [FLAG] in your environment}"
     volumes:
       - "./db/:/docker-entrypoint-initdb.d/"
   server:
