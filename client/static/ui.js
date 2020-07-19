@@ -3,12 +3,16 @@ window.addEventListener("load", () => {
         let queryText = document.querySelector("#query-input").value;
         let encodedQuery = btoa(queryText);
 
+        let controller = new AbortController();
+        setTimeout(() => controller.abort(), 3000);
+
         fetch("/query", {
             method: "POST",
             credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
+            signal: controller.signal,
             body: JSON.stringify({ query: encodedQuery }),
         }).then(async (response) => {
             let rows = await response.json();
@@ -29,7 +33,7 @@ window.addEventListener("load", () => {
                 let rowElt = document.createElement("tr");
                 keys.forEach((key) => {
                     let elt = document.createElement("td");
-                    elt.innerText = row[key].toString();
+                    elt.innerText = row[key]?.toString();
                     rowElt.appendChild(elt);
                 });
                 table.appendChild(rowElt);

