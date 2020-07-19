@@ -28,6 +28,7 @@ const pool = new Pool({
     password: nconf.get("PG_PASS"),
     host: nconf.get("PG_HOST"),
     port: parseInt(nconf.get("PG_PORT"), 10),
+    statement_timeout: 5000
 });
 
 const jwtSecret = Buffer.from(nconf.get("JWT_SECRET"));
@@ -127,7 +128,7 @@ app.post("/query", async (req, res) => {
 
         let results = await client.query({
             text: query,
-            rows: 20,
+            rows: 20
         } as any);
 
         rows = results.rows;

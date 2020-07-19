@@ -11,8 +11,6 @@ services:
       - "FLAG=${FLAG:?Please set [FLAG] in your environment}"
     volumes:
       - "./db/:/docker-entrypoint-initdb.d/"
-    ports:
-      - "5432:5432"
   server:
     build:
       context: "./"
